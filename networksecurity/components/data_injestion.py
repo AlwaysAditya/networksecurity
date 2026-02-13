@@ -43,7 +43,7 @@ class DataIngestion:
             df.replace({"na":np.nan},inplace=True)
             return df
         except Exception as e:
-            raise NetworkSecurityException(e,sys)
+            raise NetworkSecurityException
         
     def export_data_into_feature_store(self,dataframe: pd.DataFrame):
         try:
@@ -82,9 +82,11 @@ class DataIngestion:
                 self.data_ingestion_config.testing_file_path, index=False, header=True
             )
             logging.info(f"Exported train and test file path.")
+
             
         except Exception as e:
             raise NetworkSecurityException(e,sys)
+        
         
     def initiate_data_ingestion(self):
         try:
@@ -94,5 +96,6 @@ class DataIngestion:
             dataingestionartifact=DataIngestionArtifact(trained_file_path=self.data_ingestion_config.training_file_path,
                                                         test_file_path=self.data_ingestion_config.testing_file_path)
             return dataingestionartifact
+
         except Exception as e:
-            raise NetworkSecurityException(e,sys)
+            raise NetworkSecurityException
